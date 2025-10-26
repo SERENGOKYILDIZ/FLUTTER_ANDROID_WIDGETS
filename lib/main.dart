@@ -29,8 +29,20 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
 
-  var tfTarih = TextEditingController();
-  var tfSaat = TextEditingController();
+  var ulkelerListe = <String>[];
+  String secilenUlke = "Türkiye";
+
+  @override
+  void initState() {
+    super.initState();
+
+    ulkelerListe.add("Türkiye");
+    ulkelerListe.add("İtalya");
+    ulkelerListe.add("Almanya");
+    ulkelerListe.add("Çin");
+    ulkelerListe.add("Amerika");
+    ulkelerListe.add("İran");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,47 +55,26 @@ class _AnasayfaState extends State<Anasayfa> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: tfSaat,
-              readOnly: true, ///-> Klavyenin açılmaması için ekkledik.
-              decoration: InputDecoration(
-                hintText: "Saat giriniz",
-              ),
-              onTap: (){ ///-> TextField'a tıklanınca timePicker açılacak.
-                showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.fromDateTime(DateTime.now()), ///-> Otomatik anlık zamanı alacak.
-                )
-                .then((alinanSaat) {
-                    setState(() {
-                      tfSaat.text = "${alinanSaat!.hour}:${alinanSaat!.minute.toString().padLeft(2, '0')}";
-                      ///-> padLeft ile 00:00 formanına uygun hale getirdik.
-                    });
-                  }
+
+
+            DropdownButton<String>(
+              value: secilenUlke,
+              items: ulkelerListe.map<DropdownMenuItem<String>>((String myValue){
+                return DropdownMenuItem<String>(
+                  value: myValue,
+                  child: Text("Ülke : $myValue", style: TextStyle(color: Colors.deepPurple, fontSize: 20),),
                 );
+              }).toList(),
+              icon: Icon(Icons.arrow_drop_down),
+              onChanged: (String? secilenVeri){
+                setState(() {
+                  secilenUlke = secilenVeri!;
+                });
               },
             ),
-            TextField(
-              controller: tfTarih,
-              readOnly: true, ///-> Klavyenin açılmaması için ekkledik.
-              decoration: InputDecoration(
-                hintText: "Tarih giriniz",
-              ),
-              onTap: (){ ///-> TextField'a tıklanınca dataPicker açılacak.
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(), ///-> Otomatik anlık zamanı alacak.
-                  firstDate: DateTime(2000),   ///-> Alt sınır
-                  lastDate: DateTime(2050),    ///-> Üst sınır
-                )
-                    .then((alinanTarih) {
-                  setState(() {
-                    tfTarih.text = "${alinanTarih!.day}/${alinanTarih!.month}/${alinanTarih!.year}";
-                  });
-                }
-                );
-              },
-            ),
+
+            Text("Secilen ulke : ${secilenUlke}"),
+
           ],
         ),
       )
