@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,55 +16,42 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Widgets'),
+      home: Anasayfa()
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class Anasayfa extends StatefulWidget {
+  const Anasayfa({super.key});
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Anasayfa> createState() => _AnasayfaState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AnasayfaState extends State<Anasayfa> {
 
-  double ilerleme = 0;
+  late WebViewController controller; /// late = daha sonra tanımlayacağım demek.
+
+
+  /// Program açılır açılmaz webview'i ayarlamak gerekiyor.
+  @override
+  void initState() {
+    super.initState();
+
+    controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)    ///-> JavaScript kodlarına izin verdik.
+    ..loadRequest(Uri.parse("https://flutter.dev/"));   ///-> URL girildi.
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrangeAccent,
-        title: Text(widget.title),
+        title: Text("Flutter Widgets"),
+        backgroundColor: Colors.deepOrange,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("Sonuc : ${ilerleme.toInt()}"),
-            Slider(
-              max: 100.0,
-              min: 0.0,
-              value: ilerleme,
-              activeColor: Colors.deepPurpleAccent, /// Aktif bar cubuğunun rengi
-              inactiveColor: Colors.red, /// Pasif kısmın rengi
-              onChanged: (double? veri){
-                setState(() {
-                  ilerleme = veri!;
-                });
-              },
-            ),
-            ElevatedButton(
-                onPressed: (){
-                  print("Slider ilerleme : ${ilerleme.toInt()}");
-                },
-                child: Text("Göster")
-            )
-          ],
-        ),
-      ),
+      body: WebViewWidget(
+          controller: controller,
+      )
     );
   }
 }
