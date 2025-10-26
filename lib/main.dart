@@ -42,7 +42,10 @@ class _AnasayfaState extends State<Anasayfa> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network("https://cdn.yemek.com/mncrop/620/388/uploads/$resimAdi"),
+            FadeInImage.assetNetwork(
+                placeholder: "images/aslan.jpeg",
+                image: "https://cdn.yemek.com/mncrop/620/388/uploads/$resimAdi"
+            ),
             ElevatedButton(
                 onPressed: (){
                   setState(() {
