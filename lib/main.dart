@@ -43,19 +43,36 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-              controller: tfController,
-              decoration: InputDecoration(
-                hintText: "Yazınız",
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                obscureText: true, /// Şifre girer gibi * ile doldurur.
+                keyboardType: TextInputType.datetime, /// Açılan klavye belirlenir.
+                textAlign: TextAlign.center, /// hint yazısını ortalar.
+                maxLength: 4, /// Karakter sınırı koyar.
+                style: TextStyle( /// İçine girilen bilginin sitili değiştirilir.
+                  color: Colors.white,
+                ),
+                controller: tfController,
+                decoration: InputDecoration(
+                  hintText: "Yazınız",
+                  hintStyle: TextStyle( /// hint yazısının sitili değiştirilir.
+                    color: Colors.blue,
+                    fontSize: 20,
+                  ),
+                  labelText: "Email", /// Başındaki yazıyı belirleriz.
+                  labelStyle: TextStyle( /// Başındaki yazının sitili değiştirilir.
+                    color: Colors.red,
+                    fontSize: 30,
+                  ),
+                  filled: true, /// Arkaplanı düzenlemek için izin aldık.
+                  fillColor: Colors.green,
+                  border: OutlineInputBorder( /// Çevçere oluşturmak için.
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  prefixIcon: Icon(Icons.cabin), /// Başına ikon eklemeye yarar.
+                ),
               ),
-            ),
-            ElevatedButton(
-                onPressed: (){
-                  setState(() {
-                    alinanVeri = tfController.text; /// Kontrolciden veriyi alıp günceller.
-                  });
-                },
-                child: Text("Veriyi Al")
             ),
             Text("Gelen Veri : ${alinanVeri}", style: TextStyle(
                 color: Colors.green,
