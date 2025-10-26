@@ -29,8 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  bool kotlinDurum = false;
-  bool dartDurum = false;
+  int radioDeger = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,36 +42,41 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CheckboxListTile(
-                title: Text("Kotlin"),
-                value: kotlinDurum,
-                controlAffinity: ListTileControlAffinity.leading, /// Sol tarafta gözükecekk yazı
-                checkColor: Colors.red, /// Seçilince seçme okunun rengi
-                activeColor: Colors.deepPurpleAccent, /// Seçilince seçme içinin rengi
-                onChanged: (bool? veri){
-                  print("Kotlin secildi : $veri");
+            RadioListTile(
+                title: Text("Galatasaray"),
+                value: 1,
+                activeColor: Colors.green,  /// Seçilince olan renk
+                groupValue: radioDeger,
+                onChanged: (int? veri){
                   setState(() {
-                    kotlinDurum = veri!;
+                    radioDeger = veri!;
                   });
+                  print("Galatasaray seçildi!");
                 },
             ),
-            CheckboxListTile(
-              title: Text("Dart"),
-              value: dartDurum,
-              controlAffinity: ListTileControlAffinity.leading, /// Sol tarafta gözükecekk yazı
-              onChanged: (bool? veri){
-                print("Dart secildi : $veri");
+            RadioListTile(
+              title: Text("Fenerbahçe"),
+              value: 2,
+              activeColor: Colors.red,    /// Seçilince olan renk
+              groupValue: radioDeger,
+              onChanged: (int? veri){
                 setState(() {
-                  dartDurum = veri!;
+                  radioDeger = veri!;
                 });
+                print("Fenerbahçe seçildi!");
               },
             ),
             ElevatedButton(
                 onPressed: (){
-                  print("Kotlin : $kotlinDurum, Dart : $dartDurum");
+                  if(radioDeger==1){
+                    print("Güncel olarak 'Galatasaray' seçili");
+                  }
+                  else if(radioDeger==2){
+                    print("Güncel olarak 'Fenerbahçe' seçili");
+                  }
                 },
                 child: Text("Göster")
-            )
+            ),
           ],
         ),
       ),
