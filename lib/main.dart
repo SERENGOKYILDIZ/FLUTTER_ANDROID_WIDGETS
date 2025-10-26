@@ -28,9 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-  bool progressBarGorun = false;
-  
+
+  double ilerleme = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,22 +42,25 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-            /// Dairesel yüklenme animasyonu
-            Visibility(
-              visible: progressBarGorun,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent), /// Dönen animasyonun rengi
-              ),
+            Text("Sonuc : ${ilerleme.toInt()}"),
+            Slider(
+              max: 100.0,
+              min: 0.0,
+              value: ilerleme,
+              activeColor: Colors.deepPurpleAccent, /// Aktif bar cubuğunun rengi
+              inactiveColor: Colors.red, /// Pasif kısmın rengi
+              onChanged: (double? veri){
+                setState(() {
+                  ilerleme = veri!;
+                });
+              },
             ),
             ElevatedButton(
                 onPressed: (){
-                  setState(() {
-                    progressBarGorun = !progressBarGorun;
-                  });
-                }, 
+                  print("Slider ilerleme : ${ilerleme.toInt()}");
+                },
                 child: Text("Göster")
-            ),
+            )
           ],
         ),
       ),
