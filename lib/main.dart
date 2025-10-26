@@ -28,22 +28,6 @@ class Anasayfa extends StatefulWidget {
 }
 
 class _AnasayfaState extends State<Anasayfa> {
-
-  var ulkelerListe = <String>[];
-  String secilenUlke = "Türkiye";
-
-  @override
-  void initState() {
-    super.initState();
-
-    ulkelerListe.add("Türkiye");
-    ulkelerListe.add("İtalya");
-    ulkelerListe.add("Almanya");
-    ulkelerListe.add("Çin");
-    ulkelerListe.add("Amerika");
-    ulkelerListe.add("İran");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,26 +39,25 @@ class _AnasayfaState extends State<Anasayfa> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-
-            DropdownButton<String>(
-              value: secilenUlke,
-              items: ulkelerListe.map<DropdownMenuItem<String>>((String myValue){
-                return DropdownMenuItem<String>(
-                  value: myValue,
-                  child: Text("Ülke : $myValue", style: TextStyle(color: Colors.deepPurple, fontSize: 20),),
-                );
-              }).toList(),
-              icon: Icon(Icons.arrow_drop_down),
-              onChanged: (String? secilenVeri){
-                setState(() {
-                  secilenUlke = secilenVeri!;
-                });
+            GestureDetector(
+              onTap: (){
+                /// Bir kez tıklanınca çalışır
+                print("Container'a tıklandı!");
               },
-            ),
-
-            Text("Secilen ulke : ${secilenUlke}"),
-
+              onDoubleTap: (){
+                /// İki kez tıklanınca çalışır
+                print("Container'a çift tıklandı!");
+              },
+              onLongPress: (){
+                /// Uzun süre tıklanınca çalışır
+                print("Container'a uzun süre tıklandı!");
+              },
+              child: Container(
+                width: 200,
+                height: 200,
+                color: Colors.red,
+              ),
+            )
           ],
         ),
       )
