@@ -29,7 +29,7 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
 
-  String resimAdi = "yemek.jpeg";
+  String resimAdi = "2021/09/sacakli-manti-one-cikan.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +42,11 @@ class _AnasayfaState extends State<Anasayfa> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("images/$resimAdi"),
+            Image.network("https://cdn.yemek.com/mncrop/620/388/uploads/$resimAdi"),
             ElevatedButton(
                 onPressed: (){
                   setState(() {
-                    resimAdi="aslan.jpeg";
+                    resimAdi="2023/11/haydari-yemekcom.jpg";
                   });
                 },
                 child: Text("Resim 1")
@@ -54,7 +54,7 @@ class _AnasayfaState extends State<Anasayfa> {
             ElevatedButton(
                 onPressed: (){
                   setState(() {
-                    resimAdi="yemek.jpeg";
+                    resimAdi="2021/09/sacakli-manti-one-cikan.jpg";
                   });
                 },
                 child: Text("Resim 2")
