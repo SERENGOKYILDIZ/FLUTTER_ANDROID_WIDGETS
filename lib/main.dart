@@ -28,9 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  int radioDeger = 0;
-
+  
+  bool progressBarGorun = false;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,39 +42,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RadioListTile(
-                title: Text("Galatasaray"),
-                value: 1,
-                activeColor: Colors.green,  /// Seçilince olan renk
-                groupValue: radioDeger,
-                onChanged: (int? veri){
-                  setState(() {
-                    radioDeger = veri!;
-                  });
-                  print("Galatasaray seçildi!");
-                },
-            ),
-            RadioListTile(
-              title: Text("Fenerbahçe"),
-              value: 2,
-              activeColor: Colors.red,    /// Seçilince olan renk
-              groupValue: radioDeger,
-              onChanged: (int? veri){
-                setState(() {
-                  radioDeger = veri!;
-                });
-                print("Fenerbahçe seçildi!");
-              },
+
+            /// Dairesel yüklenme animasyonu
+            Visibility(
+              visible: progressBarGorun,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent), /// Dönen animasyonun rengi
+              ),
             ),
             ElevatedButton(
                 onPressed: (){
-                  if(radioDeger==1){
-                    print("Güncel olarak 'Galatasaray' seçili");
-                  }
-                  else if(radioDeger==2){
-                    print("Güncel olarak 'Fenerbahçe' seçili");
-                  }
-                },
+                  setState(() {
+                    progressBarGorun = !progressBarGorun;
+                  });
+                }, 
                 child: Text("Göster")
             ),
           ],
