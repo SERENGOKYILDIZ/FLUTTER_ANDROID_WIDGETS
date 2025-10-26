@@ -29,18 +29,7 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
 
-  late WebViewController controller; /// late = daha sonra tanımlayacağım demek.
-
-
-  /// Program açılır açılmaz webview'i ayarlamak gerekiyor.
-  @override
-  void initState() {
-    super.initState();
-
-    controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)    ///-> JavaScript kodlarına izin verdik.
-    ..loadRequest(Uri.parse("https://flutter.dev/"));   ///-> URL girildi.
-  }
+  String resimAdi = "yemek.jpeg";
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +38,29 @@ class _AnasayfaState extends State<Anasayfa> {
         title: Text("Flutter Widgets"),
         backgroundColor: Colors.deepOrange,
       ),
-      body: WebViewWidget(
-          controller: controller,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("images/$resimAdi"),
+            ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    resimAdi="aslan.jpeg";
+                  });
+                },
+                child: Text("Resim 1")
+            ),
+            ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    resimAdi="yemek.jpeg";
+                  });
+                },
+                child: Text("Resim 2")
+            ),
+          ],
+        ),
       )
     );
   }
