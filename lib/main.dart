@@ -28,10 +28,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  var tfController = TextEditingController();
-  String alinanVeri = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,21 +39,39 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-              controller: tfController,
-              decoration: InputDecoration(
-                hintText: "Yazınız",
-              ),
-            ),
             ElevatedButton(
                 onPressed: (){
-                  setState(() {
-                    alinanVeri = tfController.text; /// Kontrolciden veriyi alıp günceller.
-                  });
+                  print("Elevated Button'a tiklandi!");
                 },
-                child: Text("Veriyi Al")
+                child: Text("Elevated Button"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
+                  shadowColor: Colors.black, /// Gölge rengini belirler
+                  elevation: 10, /// Gölgenin büyüklüğünü belirler
+                  /// V /// Çap verme işi ama ben sıfır yaptm dikdörtgen oldu
+                  shape: RoundedRectangleBorder( 
+                    borderRadius: BorderRadius.zero
+                  ),
+                ),
             ),
-            Text("Gelen Veri : ${alinanVeri}"),
+            TextButton(
+                onPressed: (){
+                  print("Text Button'a tiklandi!");
+                },
+                child: Text("Text Button"),
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                  /// V /// Çap verme işi daha az verdim iyi oldu.
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        side: BorderSide(color: Colors.red)
+                    ),
+                ),
+            ),
           ],
         ),
       ),
