@@ -28,9 +28,6 @@ class Anasayfa extends StatefulWidget {
 }
 
 class _AnasayfaState extends State<Anasayfa> {
-
-  String resimAdi = "2021/09/sacakli-manti-one-cikan.jpg";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,31 +35,16 @@ class _AnasayfaState extends State<Anasayfa> {
         title: Text("Flutter Widgets"),
         backgroundColor: Colors.deepOrange,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FadeInImage.assetNetwork(
-                placeholder: "images/aslan.jpeg",
-                image: "https://cdn.yemek.com/mncrop/620/388/uploads/$resimAdi"
-            ),
-            ElevatedButton(
-                onPressed: (){
-                  setState(() {
-                    resimAdi="2023/11/haydari-yemekcom.jpg";
-                  });
-                },
-                child: Text("Resim 1")
-            ),
-            ElevatedButton(
-                onPressed: (){
-                  setState(() {
-                    resimAdi="2021/09/sacakli-manti-one-cikan.jpg";
-                  });
-                },
-                child: Text("Resim 2")
-            ),
-          ],
+      body: SingleChildScrollView( ///-> Bu wigdet ile scrol edilebilirlik eklenir.
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(width: 300, height: 500, color: Colors.red),
+              Container(width: 300, height: 500, color: Colors.blue),
+              Container(width: 300, height: 500, color: Colors.green),
+            ],
+          ),
         ),
       )
     );
