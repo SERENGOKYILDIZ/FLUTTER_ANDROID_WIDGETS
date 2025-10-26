@@ -43,46 +43,46 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextField(
-                obscureText: true, /// Şifre girer gibi * ile doldurur.
-                keyboardType: TextInputType.datetime, /// Açılan klavye belirlenir.
-                textAlign: TextAlign.center, /// hint yazısını ortalar.
-                maxLength: 4, /// Karakter sınırı koyar.
-                style: TextStyle( /// İçine girilen bilginin sitili değiştirilir.
-                  color: Colors.white,
-                ),
-                controller: tfController,
-                decoration: InputDecoration(
-                  hintText: "Yazınız",
-                  hintStyle: TextStyle( /// hint yazısının sitili değiştirilir.
-                    color: Colors.blue,
-                    fontSize: 20,
-                  ),
-                  labelText: "Email", /// Başındaki yazıyı belirleriz.
-                  labelStyle: TextStyle( /// Başındaki yazının sitili değiştirilir.
-                    color: Colors.red,
-                    fontSize: 30,
-                  ),
-                  filled: true, /// Arkaplanı düzenlemek için izin aldık.
-                  fillColor: Colors.green,
-                  border: OutlineInputBorder( /// Çevçere oluşturmak için.
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  prefixIcon: Icon(Icons.cabin), /// Başına ikon eklemeye yarar.
-                ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Yazınız",
               ),
             ),
-            Text("Gelen Veri : ${alinanVeri}", style: TextStyle(
-                color: Colors.green,
-                backgroundColor: Colors.red,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+
+            /// Böyle kullanılmaz normalde ama yazılabiliyor.
+            FloatingActionButton(
+              onPressed: (){
+                print("Fab2 tıklandı!!");
+              },
+              tooltip: "Fab2",
+              child: Icon(Icons.print),
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+            )
           ],
         ),
+      ),
+      /// NOT: Floating Button body'nin altında tanımlanır. Çünkü body'den bağımsız
+      /// hareket eder.
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: (){
+      //       print("Fab1 tıklandı!!");
+      //     },
+      //     tooltip: "Fab1",
+      //     child: Icon(Icons.add),
+      //     backgroundColor: Colors.deepPurpleAccent,
+      //     foregroundColor: Colors.pink,
+      // ),
+
+      /// NOT: Aşağıdaki daha gelişmiş ve yazı yazılmış versiyonudur.
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: (){
+          print("Fab1 tıklandı!!");
+        },
+        label: Text("FAB"),
+        icon: Icon(Icons.add),
+        backgroundColor: Colors.deepPurpleAccent,
+        foregroundColor: Colors.pink,
       ),
     );
   }
