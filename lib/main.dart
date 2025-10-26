@@ -29,8 +29,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var toggleDurumlari = [true, false, true];
-  int secilenIndex = 0;
+  bool kotlinDurum = false;
+  bool dartDurum = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +43,36 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ToggleButtons(
-                isSelected: toggleDurumlari,
-                onPressed: (int secilen){
-                  secilenIndex = secilen;
-                  print("${secilenIndex+1}. toggle secildi");
-
+            CheckboxListTile(
+                title: Text("Kotlin"),
+                value: kotlinDurum,
+                controlAffinity: ListTileControlAffinity.leading, /// Sol tarafta gözükecekk yazı
+                checkColor: Colors.red, /// Seçilince seçme okunun rengi
+                activeColor: Colors.deepPurpleAccent, /// Seçilince seçme içinin rengi
+                onChanged: (bool? veri){
+                  print("Kotlin secildi : $veri");
                   setState(() {
-                    toggleDurumlari[secilenIndex] = !toggleDurumlari[secilenIndex];
+                    kotlinDurum = veri!;
                   });
                 },
-                color: Colors.red,            /// Seçilmediği zamanki rengi
-                selectedColor: Colors.green,  /// Seçildiği zamanki rengi
-                fillColor: Colors.black54,    /// Seçildiği zamanki arkaplan rengi
-                children: [
-                  Icon(Icons.looks_one),
-                  Icon(Icons.looks_two),
-                  Icon(Icons.looks_3),
-                ],
+            ),
+            CheckboxListTile(
+              title: Text("Dart"),
+              value: dartDurum,
+              controlAffinity: ListTileControlAffinity.leading, /// Sol tarafta gözükecekk yazı
+              onChanged: (bool? veri){
+                print("Dart secildi : $veri");
+                setState(() {
+                  dartDurum = veri!;
+                });
+              },
             ),
             ElevatedButton(
                 onPressed: (){
-                  print("En son seçilen = ${secilenIndex+1}");
+                  print("Kotlin : $kotlinDurum, Dart : $dartDurum");
                 },
                 child: Text("Göster")
-            ),
+            )
           ],
         ),
       ),
