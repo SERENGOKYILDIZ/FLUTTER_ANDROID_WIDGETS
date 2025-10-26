@@ -29,7 +29,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  bool switchControl = false;
+  var toggleDurumlari = [true, false, true];
+  int secilenIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,23 +43,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Switch(
-                value: switchControl,
-                onChanged: (veri){
+            ToggleButtons(
+                isSelected: toggleDurumlari,
+                onPressed: (int secilen){
+                  secilenIndex = secilen;
+                  print("${secilenIndex+1}. toggle secildi");
+
                   setState(() {
-                    switchControl = veri;
-                    print("Switch durumu : $switchControl");
+                    toggleDurumlari[secilenIndex] = !toggleDurumlari[secilenIndex];
                   });
                 },
-                activeTrackColor: Colors.lightGreenAccent,    // true olduğu zamanki rengi
-                inactiveTrackColor: Colors.black54,           // false olduğu zamanki rengi
-                activeThumbColor: Colors.pinkAccent,          // true iken yuvarlağın rengi
-                inactiveThumbColor: Colors.white,             // true iken yuvarlağın rengi
-
+                color: Colors.red,            /// Seçilmediği zamanki rengi
+                selectedColor: Colors.green,  /// Seçildiği zamanki rengi
+                fillColor: Colors.black54,    /// Seçildiği zamanki arkaplan rengi
+                children: [
+                  Icon(Icons.looks_one),
+                  Icon(Icons.looks_two),
+                  Icon(Icons.looks_3),
+                ],
             ),
             ElevatedButton(
                 onPressed: (){
-                    print("Switch durumu : $switchControl");
+                  print("En son seçilen = ${secilenIndex+1}");
                 },
                 child: Text("Göster")
             ),
