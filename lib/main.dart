@@ -29,8 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var tfController = TextEditingController();
-  String alinanVeri = "";
+  bool switchControl = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,46 +42,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Yazınız",
-              ),
-            ),
+            Switch(
+                value: switchControl,
+                onChanged: (veri){
+                  setState(() {
+                    switchControl = veri;
+                    print("Switch durumu : $switchControl");
+                  });
+                },
+                activeTrackColor: Colors.lightGreenAccent,    // true olduğu zamanki rengi
+                inactiveTrackColor: Colors.black54,           // false olduğu zamanki rengi
+                activeThumbColor: Colors.pinkAccent,          // true iken yuvarlağın rengi
+                inactiveThumbColor: Colors.white,             // true iken yuvarlağın rengi
 
-            /// Böyle kullanılmaz normalde ama yazılabiliyor.
-            FloatingActionButton(
-              onPressed: (){
-                print("Fab2 tıklandı!!");
-              },
-              tooltip: "Fab2",
-              child: Icon(Icons.print),
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-            )
+            ),
+            ElevatedButton(
+                onPressed: (){
+                    print("Switch durumu : $switchControl");
+                },
+                child: Text("Göster")
+            ),
           ],
         ),
-      ),
-      /// NOT: Floating Button body'nin altında tanımlanır. Çünkü body'den bağımsız
-      /// hareket eder.
-      // floatingActionButton: FloatingActionButton(
-      //     onPressed: (){
-      //       print("Fab1 tıklandı!!");
-      //     },
-      //     tooltip: "Fab1",
-      //     child: Icon(Icons.add),
-      //     backgroundColor: Colors.deepPurpleAccent,
-      //     foregroundColor: Colors.pink,
-      // ),
-
-      /// NOT: Aşağıdaki daha gelişmiş ve yazı yazılmış versiyonudur.
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
-          print("Fab1 tıklandı!!");
-        },
-        label: Text("FAB"),
-        icon: Icon(Icons.add),
-        backgroundColor: Colors.deepPurpleAccent,
-        foregroundColor: Colors.pink,
       ),
     );
   }
