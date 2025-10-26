@@ -28,6 +28,10 @@ class Anasayfa extends StatefulWidget {
 }
 
 class _AnasayfaState extends State<Anasayfa> {
+
+  var tfTarih = TextEditingController();
+  var tfSaat = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,16 +39,52 @@ class _AnasayfaState extends State<Anasayfa> {
         title: Text("Flutter Widgets"),
         backgroundColor: Colors.deepOrange,
       ),
-      body: SingleChildScrollView( ///-> Bu wigdet ile scrol edilebilirlik eklenir.
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(width: 300, height: 500, color: Colors.red),
-              Container(width: 300, height: 500, color: Colors.blue),
-              Container(width: 300, height: 500, color: Colors.green),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: tfSaat,
+              readOnly: true, ///-> Klavyenin açılmaması için ekkledik.
+              decoration: InputDecoration(
+                hintText: "Saat giriniz",
+              ),
+              onTap: (){ ///-> TextField'a tıklanınca timePicker açılacak.
+                showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.fromDateTime(DateTime.now()), ///-> Otomatik anlık zamanı alacak.
+                )
+                .then((alinanSaat) {
+                    setState(() {
+                      tfSaat.text = "${alinanSaat!.hour}:${alinanSaat!.minute.toString().padLeft(2, '0')}";
+                      ///-> padLeft ile 00:00 formanına uygun hale getirdik.
+                    });
+                  }
+                );
+              },
+            ),
+            TextField(
+              controller: tfTarih,
+              readOnly: true, ///-> Klavyenin açılmaması için ekkledik.
+              decoration: InputDecoration(
+                hintText: "Tarih giriniz",
+              ),
+              onTap: (){ ///-> TextField'a tıklanınca dataPicker açılacak.
+                showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(), ///-> Otomatik anlık zamanı alacak.
+                  firstDate: DateTime(2000),   ///-> Alt sınır
+                  lastDate: DateTime(2050),    ///-> Üst sınır
+                )
+                    .then((alinanTarih) {
+                  setState(() {
+                    tfTarih.text = "${alinanTarih!.day}/${alinanTarih!.month}/${alinanTarih!.year}";
+                  });
+                }
+                );
+              },
+            ),
+          ],
         ),
       )
     );
